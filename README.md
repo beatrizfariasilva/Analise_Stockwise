@@ -8,10 +8,10 @@ Identificar se características do produto, volume de vendas, giro de estoque, c
 
 ## Hipóteses iniciais
 
-1. **H1** — Produto é descontinuado porque vende pouco em quantidade comparado aos demais.
-2. **H2** — Produto é descontinuado porque vence rápido demais e corre risco de expirar em estoque.
-3. **H3** — Produto é descontinuado porque vende pouco a ponto de manter capital parado em estoque (capital imobilizado alto).
-4. **H4** — Produto entra em *backorder* porque o fornecedor tem histórico de atraso na entrega.
+1. **H1**: Produto é descontinuado porque vende pouco em quantidade comparado aos demais.
+2. **H2**: Produto é descontinuado porque vence rápido demais e corre risco de expirar em estoque.
+3. **H3**: Produto é descontinuado porque vende pouco a ponto de manter capital parado em estoque (capital imobilizado alto).
+4. **H4**: Produto entra em *backorder* porque o fornecedor tem histórico de atraso na entrega.
 
 ## Dataset
 
@@ -31,10 +31,10 @@ Python · pandas · matplotlib · seaborn · scipy (teste qui-quadrado)
 - Nenhuma duplicata encontrada.
 
 ### 2. Análise univariada
-- A variável-alvo `Status` está quase perfeitamente balanceada entre as três classes (~33% cada) — incomum para dado real de negócio, o que já sinaliza cautela quanto à origem dos dados.
+- A variável-alvo `Status` está quase perfeitamente balanceada entre as três classes (~33% cada), o que é incomum para dado real de negócio, o que já sinaliza cautela quanto à origem dos dados.
 - `Inventory_Turnover_Rate` mostrou distribuição praticamente uniforme (média ≈ mediana ≈ 50, quartis igualmente espaçados), padrão atípico para giro de estoque real e que sugere ausência de sinal informativo.
 - `capital_imobilizado` (criada como `Stock_Quantity × Unit_Price`) apresentou forte assimetria à direita, causada por outliers de preço unitário inconsistentes com a realidade (ex: item "Banana" custando $98,43 a unidade).
-- **Problema crítico identificado:** as colunas de data (`Date_Received`, `Last_Order_Date`, `Expiration_Date`) não possuem relação cronológica confiável entre si — cerca de 50% dos registros mostravam datas de validade anteriores ao recebimento, ou pedidos "recebidos" antes de serem feitos. Por esse motivo, **H2 e H4 foram descartadas** já nesta etapa, por falta de sustentação nos dados.
+- **Problema crítico identificado:** as colunas de data (`Date_Received`, `Last_Order_Date`, `Expiration_Date`) não possuem relação cronológica confiável entre si, cerca de 50% dos registros mostravam datas de validade anteriores ao recebimento, ou pedidos "recebidos" antes de serem feitos. Por esse motivo, **H2 e H4 foram descartadas** já nesta etapa, por falta de sustentação nos dados.
 
 ### 3. Análise bivariada
 - `Inventory_Turnover_Rate`, `Sales_Volume` e `capital_imobilizado` (mediana) foram comparados entre os grupos de `Status` via gráficos de barra e boxplot: em nenhum dos três casos houve diferença relevante entre os grupos `Active`, `Backordered` e `Discontinued`.
